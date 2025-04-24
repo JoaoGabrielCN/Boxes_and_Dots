@@ -24,7 +24,7 @@ public class Game extends ApplicationAdapter {
    @Override
    public void create() {
       board = new Board();
-    
+      
    }
 
 
