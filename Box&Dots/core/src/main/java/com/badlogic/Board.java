@@ -1,5 +1,7 @@
 package com.badlogic;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
@@ -7,6 +9,8 @@ public class Board {
 	Dots[][] dots;
 	Line[][] columns, lines;
 	Square[][] squares;
+	OrthographicCamera camera;
+	Boolean turn=true;//se o turn = true,vez player1 se não player2
 
 	public Board() {
 		dots = new Dots[6][6];
@@ -15,56 +19,62 @@ public class Board {
 		squares = new Square[5][5];
 
 		intializeBoard();
-		columns[4][4].visible = 2;
-		lines[4][4].visible = 2;
-		columns[5][4].visible = 2;
-		lines[4][5].visible = 2;
-		
-		columns[4][4].visible = 2;
-		lines[4][4].visible = 2;
-		columns[5][4].visible = 2;
-		lines[4][5].visible = 2;
-		
-		
-		
-		squares[4][4].TestaQuadrado(columns, lines);
+
+		camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
+
 	}
 
 	public void draw(SpriteBatch batch) {
 
-//		for (Square[] squares2 : squares) {
-//			for (Square square : squares2) {
-//				square.draw(batch);
-//			}
-//		}
-//		
-//		for (Line[] columns2 : columns) {
-//			for (Line column : columns2) {
-//				column.draw(batch);
-//			}
-//		}
-//
-//		for (Line[] lines2 : lines) {
-//			for (Line line : lines2) {
-//				line.draw(batch);
-//				
-//			}
-//		}
-//
-//		for (Dots[] dots2 : dots) {
-//			for (Dots dots : dots2) {
-//				dots.draw(batch);
-//			}
-//		}
+		for (Square[] squares2 : squares) {
+			for (Square square : squares2) {
+				square.draw(batch);
+			}
+		}
 
-		columns[4][4].draw(batch);
-		lines[4][4].draw(batch);
-		columns[5][4].draw(batch);
-		lines[4][5].draw(batch);
+		for (Line[] columns2 : columns) {
+			for (Line column : columns2) {
+
+				column.draw(batch);
+				if(column.clicked(camera,turn) == true) {
+					turn = !turn;
+					System.out.println("trocou!");
+				}
+					
+			}
+
+		}
+
+		for (Line[] lines2 : lines) {
+			for (Line line : lines2) {
+				line.draw(batch);
+				
+				if(line.clicked(camera,turn) == true) {
+					turn = !turn;
+					System.out.println("trocou!");
+				}
+
+			}
+		}
+
+		for (Dots[] dots2 : dots) {
+			for (Dots dots : dots2) {
+				dots.draw(batch);
+			}
+		}
+		for (Square[] squares2 : squares) {
+			for (Square square : squares2) {
+				square.TestaQuadrado(columns, lines,turn);
+
+			}
+		}
+		camera.update();
 
 	}
 
 	public void dispose() {
+
 		for (Dots[] dots2 : dots) {
 			for (Dots dots : dots2) {
 				dots.dispose();
@@ -80,10 +90,9 @@ public class Board {
 		for (Line[] lines2 : lines) {
 			for (Line line : lines2) {
 				line.dispose();
-				;
+
 			}
 		}
-
 		for (Square[] squares2 : squares) {
 			for (Square square : squares2) {
 				square.dispose();
@@ -97,7 +106,7 @@ public class Board {
 		for (int i = 0; i < 6; i++) {
 			for (int j = 0; j < 6; j++) {
 				dots[i][j] = new Dots(i * 100 + 95, j * 100 + 45);
-				;
+
 			}
 		}
 

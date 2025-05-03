@@ -9,7 +9,7 @@ public class Square {
 	private Vector2 position;
 	private Sprite sprite;
 	private Texture squareTexture;
-	public boolean exists;
+	public boolean exists=false;
 	
 	Square(Vector2 position) {
 		this.position = position;
@@ -22,19 +22,26 @@ public class Square {
 		sprite.draw(batch);
 	}
 
-	public void TestaQuadrado(Line[][] verticalLines, Line[][] horizontalLines) {
-
+	public void TestaQuadrado(Line[][] verticalLines, Line[][] horizontalLines,boolean turn) {
+		if(exists == false) {
 		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < 5; j++) {
 				if (verticalLines[i][j].visible == 2 && horizontalLines[i][j].visible == 2
 						&& verticalLines[i+1][j].visible == 2 && horizontalLines[i][j+1].visible == 2) {
 					System.out.println("quadrado" + i + j + " existe");
+					if(turn = true) {
+						System.out.println("Quadrado player1");
+					}else {
+						System.out.println("Quadrado player2");
+
+					}
 					exists = true;
 				}else {
 					exists = false;
 				}
 				
 			}
+		}
 		}
 	}
 
