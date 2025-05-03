@@ -29,9 +29,11 @@ public class Board {
 
 		for (Square[] squares2 : squares) {
 			for (Square square : squares2) {
-				square.draw(batch);
+				if(square.exists) square.draw(batch);
+				square.TestaQuadrado(columns, lines, turn);
 			}
 		}
+		
 
 		for (Line[] columns2 : columns) {
 			for (Line column : columns2) {
@@ -65,7 +67,7 @@ public class Board {
 		}
 		for (Square[] squares2 : squares) {
 			for (Square square : squares2) {
-				square.TestaQuadrado(columns, lines,turn);
+				 
 
 			}
 		}
@@ -103,26 +105,33 @@ public class Board {
 
 	private void intializeBoard() {
 
-		for (int i = 0; i < 6; i++) {
-			for (int j = 0; j < 6; j++) {
-				dots[i][j] = new Dots(i * 100 + 95, j * 100 + 45);
+		 for (int i = 0; i < 6; i++) {
+		        for (int j = 0; j < 6; j++) {
+		            dots[i][j] = new Dots(i * 100 + 35, j * 100 + 35); // (35 = 50 - 15)
+		        }
+		    }
 
-			}
-		}
+		    // Columns (linhas verticais entre os dots): 6 colunas por 5 linhas
+		    for (int i = 0; i < 6; i++) {
+		        for (int j = 0; j < 5; j++) {
+		            columns[i][j] = new Line(new Vector2(i * 100 + 40, j * 100 + 35 + 15), true); // x centralizado (100 - 20)/2
+		        }
+		    }
 
-		for (int i = 0; i < 6; i++) {
-			for (int j = 0; j < 5; j++) {
-				columns[i][j] = new Line(new Vector2(i * 100 + 105, j * 100 + 50), true);
-				lines[j][i] = new Line(new Vector2(j * 100 + 105, i * 100 + 50), false);
-			}
-		}
+		    // Lines (linhas horizontais entre os dots): 5 colunas por 6 linhas
+		    for (int i = 0; i < 5; i++) {
+		        for (int j = 0; j < 6; j++) {
+		            lines[i][j] = new Line(new Vector2(i * 100 + 35 + 15, j * 100 + 40), false); // y centralizado
+		        }
+		    }
 
-		for (int i = 0; i < 5; i++) {
-			for (int j = 0; j < 5; j++) {
-				squares[i][j] = new Square(new Vector2(i * 100 + 110, j * 100 + 57));
-			}
-
-		}
+		    // Squares (5x5)
+		    for (int i = 0; i < 5; i++) {
+		        for (int j = 0; j < 5; j++) {
+		            squares[i][j] = new Square(i * 100 + 50, j * 100 + 50, i, j);
+		        }
+		    }
 
 	}
+	
 }
