@@ -1,14 +1,10 @@
 package com.badlogic;
 
 import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
-import java.util.ArrayList;
 
-/** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
+
 public class Jogo extends ApplicationAdapter {
     private SpriteBatch batch;
     
