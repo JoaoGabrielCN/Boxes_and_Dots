@@ -10,6 +10,7 @@ public class Square {
 	private Sprite sprite;
 	private Texture squareTexture;
 	public boolean exists;
+	 boolean turn;
 	private int i, j, x, y;
 
 	Square(int x, int y, int i , int j) {
@@ -18,14 +19,22 @@ public class Square {
 		this.y = y;	
 		this.i = i;
 		this.j = j;
-		squareTexture = new Texture("Quadrado.png");
+		squareTexture = new Texture("Quadrado1.png");
 		sprite = new Sprite(squareTexture);
+		sprite.setSize(100, 100);
 		sprite.setPosition(x, y);
 	
 	}
 
 	public void draw(SpriteBatch batch) {
-		sprite.draw(batch);
+		if(turn == true) {
+			sprite.setColor(0f, 0f, 1f, 1f);
+			sprite.draw(batch);
+		}else {
+			sprite.setColor(1f, 0f, 0f, 1f);
+			sprite.draw(batch);
+		}
+		
 	}
 
 	public void TestaQuadrado(Line[][] verticalLines, Line[][] horizontalLines, boolean turn) {
@@ -34,7 +43,7 @@ public class Square {
 			if (verticalLines[i][j].visible == 2 && horizontalLines[i][j].visible == 2
 					&& verticalLines[i + 1][j].visible == 2 && horizontalLines[i][j + 1].visible == 2) {
 				exists = true;
-
+				this.turn = turn;
 			} else {
 				exists = false;
 			}

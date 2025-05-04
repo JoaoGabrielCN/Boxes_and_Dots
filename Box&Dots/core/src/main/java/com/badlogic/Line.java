@@ -14,7 +14,7 @@ public class Line {
 	Boolean align;
 	private Texture horizontalTexture, verticalTexture;
 	private Sprite line;
-	private boolean tagTeam;
+	private boolean exist;
 	Vector3 touchPoint = new Vector3();
 	Boolean turn = true;// se o turn = true,linha do player1 se não player2
 
@@ -22,6 +22,7 @@ public class Line {
 		this.pos = pos;
 		this.align = align;
 		visible = 0;
+		exist = false;
 
 		intializeLines();
 	}
@@ -48,6 +49,7 @@ public class Line {
 	}
 
 	public boolean clicked(OrthographicCamera camera, boolean turn) {
+		if(exist == false) {
 		if (Gdx.input.justTouched()) {
 			Vector3 touchPos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
 			camera.unproject(touchPos);
@@ -56,8 +58,11 @@ public class Line {
 				System.out.println("Sprite foi clicado!");
 				visible = 2;
 				this.turn = turn;
+				exist = true;
 				return true;
 			}
+		}
+		return false;
 		}
 		return false;
 	}
