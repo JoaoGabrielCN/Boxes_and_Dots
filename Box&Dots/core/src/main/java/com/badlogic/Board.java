@@ -35,26 +35,25 @@ public class Board {
 		}
 		
 
-		for (Line[] columns2 : columns) {
-			for (Line column : columns2) {
-
-				column.draw(batch);
-				if(column.clicked(camera,turn) == true) {
+		for (int i = 0; i < 6; i++) {
+	        for (int j = 0; j < 5; j++) {
+				columns[i][j].draw(batch);
+				if(columns[i][j].MouseOver(camera, turn, dots[i][j], dots[i][j+1]) == true) {
 					turn = !turn;
-					System.out.println("trocou!");
+					
 				}
 					
 			}
 
 		}
 
-		for (Line[] lines2 : lines) {
-			for (Line line : lines2) {
-				line.draw(batch);
+		  for (int i = 0; i < 5; i++) {
+		        for (int j = 0; j < 6; j++) {
+				lines[i][j].draw(batch);
 				
-				if(line.clicked(camera,turn) == true) {
+				if(lines[i][j].MouseOver(camera, turn, dots[i][j], dots[i+1][j]) == true) {
 					turn = !turn;
-					System.out.println("trocou!");
+					
 				}
 
 			}
@@ -62,6 +61,7 @@ public class Board {
 
 		for (Dots[] dots2 : dots) {
 			for (Dots dots : dots2) {
+				
 				dots.draw(batch);
 			}
 		}
@@ -107,7 +107,7 @@ public class Board {
 
 		 for (int i = 0; i < 6; i++) {
 		        for (int j = 0; j < 6; j++) {
-		            dots[i][j] = new Dots(i * 100 + 35, j * 100 + 35); // (35 = 50 - 15)
+		            dots[i][j] = new Dots(i * 100 + 35, j * 100 + 35,i,j); // (35 = 50 - 15)
 		        }
 		    }
 

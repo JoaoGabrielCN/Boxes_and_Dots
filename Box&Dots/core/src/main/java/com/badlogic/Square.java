@@ -28,10 +28,11 @@ public class Square {
 
 	public void draw(SpriteBatch batch) {
 		if(turn == true) {
-			sprite.setColor(0f, 0f, 1f, 1f);
+			sprite.setColor(1f, 0.4f, 0.4f, 1f);
 			sprite.draw(batch);
 		}else {
-			sprite.setColor(1f, 0f, 0f, 1f);
+			sprite.setColor(0.4f, 0.4f, 1f, 1f);
+			
 			sprite.draw(batch);
 		}
 		

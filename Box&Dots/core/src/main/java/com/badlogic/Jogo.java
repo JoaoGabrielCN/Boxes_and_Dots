@@ -26,7 +26,7 @@ public class Jogo extends ApplicationAdapter {
 
     @Override
     public void render() {
-      ScreenUtils.clear(0.5f, 0.7f, 1f, 1);
+      ScreenUtils.clear(0.6f, 0.7f, 0.6f, 1);
       
       camera.update(); // Atualiza transformações da câmera
       batch.setProjectionMatrix(camera.combined); // Aplica
