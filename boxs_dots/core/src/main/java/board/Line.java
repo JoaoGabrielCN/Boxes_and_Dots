@@ -1,0 +1,124 @@
+package board;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
+
+public class Line {
+	Vector2 pos;
+	public int visible;
+	Boolean align;
+	private Texture horizontalTexture, verticalTexture;
+	private Sprite line;
+	private boolean exist;
+	Vector3 touchPoint = new Vector3();
+	Boolean turn = true;
+
+	public Line(Vector2 pos, Boolean align) {
+		this.pos = pos;
+		this.align = align;
+		visible = 0;
+		exist = false;
+
+		intializeLines();
+	}
+
+	public void draw(SpriteBatch batch) {
+		switch (visible) {
+		case 0:
+			line.setColor(0f, 0f, 0f, 1f);
+			line.draw(batch);
+			break;
+		case 1:
+			if (turn) {
+				line.setColor(0.1f, 0.1f, 1f, 1f);
+			} else {
+
+				line.setColor(1f, 0.1f, 0.1f, 1f);
+			}
+
+			line.draw(batch);
+			break;
+		case 2:
+			line.draw(batch);
+			break;
+
+		}
+
+	}
+
+	public void dispose() {
+		line.getTexture().dispose();
+	}
+
+	private void intializeLines() {
+		verticalTexture = new Texture("LinhaVertical1.png");
+		horizontalTexture = new Texture("LinhaHorizontal1.png");
+
+		if (!align) {
+			line = new Sprite(horizontalTexture);
+		} else {
+			line = new Sprite(verticalTexture);
+		}
+
+		line.setPosition(pos.x, pos.y);
+	}
+
+	public boolean MouseOver(OrthographicCamera camera, boolean turn, Dots[][] Dots) {
+		Vector3 mousePos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
+		camera.unproject(mousePos);
+
+		int i = ((int) mousePos.x - 35) / 100;
+		int j = ((int) mousePos.y - 35) / 100;
+
+		if (i < 0) i = 0;
+
+		if (i > 5) i = 5;
+
+		if (j > 5) j = 5;
+		
+		if (j < 0) j = 0;
+		
+
+		if (!Dots[i][j].getSprite().getBoundingRectangle().contains(mousePos.x, mousePos.y) && !exist) {
+
+				if (line.getBoundingRectangle().contains(mousePos.x, mousePos.y)) {
+					setVisibility(1);
+					this.turn = turn;
+					return clicked(camera, turn);
+
+				} else {
+					setVisibility(0);
+				}
+
+		}
+
+		return false;
+
+	}
+
+	public boolean clicked(OrthographicCamera camera, boolean turn) {
+
+		if (Gdx.input.justTouched()) {
+			Vector3 touchPos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
+			camera.unproject(touchPos);
+
+			if (line.getBoundingRectangle().contains(touchPos.x, touchPos.y)) {
+				setVisibility(2);
+
+				exist = true;
+				return true;
+			}
+		}
+		return false;
+
+	}
+
+	public void setVisibility(int num) {
+		visible = num;
+	}
+}
