@@ -10,6 +10,11 @@ public class Board {
 	Line[][] columns, lines;
 	Square[][] squares;
 	OrthographicCamera camera;
+	Placar placarAzul;
+	Placar placarVermelho;
+	int pontosRed;
+	int pontosBlue;
+	
 	Boolean turn=true;//se o turn = true,vez player1 se não player2
 
 	public Board() {
@@ -17,6 +22,10 @@ public class Board {
 		lines = new Line[5][6];
 		columns = new Line[6][5];
 		squares = new Square[5][5];
+		placarAzul = new Placar(0);
+		placarVermelho = new Placar(1);
+		pontosRed =0;
+		pontosBlue=0;
 
 		intializeBoard();
 
@@ -52,6 +61,8 @@ public class Board {
 				dots.draw(batch);
 			}
 		}
+		placarAzul.draw(batch, Square.getPointsBlue());
+		placarVermelho.draw(batch, Square.getPointsRed());
 		camera.update();
 
 	}
@@ -81,6 +92,11 @@ public class Board {
 				square.dispose();
 			}
 		}
+		
+		placarAzul.dispose();
+		placarVermelho.dispose();
+		
+		
 
 	}
 
@@ -112,6 +128,9 @@ public class Board {
 		            squares[i][j] = new Square(i * 100 + 50, j * 100 + 50, i, j);
 		        }
 		    }
+		    
+		    placarAzul.render();
+		    placarVermelho.render();
 
 	}
 	
@@ -145,7 +164,17 @@ public class Board {
 
 			}
 		}
+		  
+		  trocaTurno(); 
 	}
+		public void trocaTurno(){
+			if(pontosRed<Square.getPointsRed() || pontosBlue<Square.getPointsBlue() ) {
+				turn=!turn;
+				pontosRed=Square.getPointsRed();
+				pontosBlue=Square.getPointsBlue();
+				}
+			
+		}
 	}
 	
 	

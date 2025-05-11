@@ -11,6 +11,7 @@ public class Square {
 	public boolean exists;
 	 boolean turn;
 	private int i, j;
+	private static int redPoints, bluePoints;
 
 	Square(int x, int y, int i , int j) {
 		exists = false;
@@ -40,15 +41,30 @@ public class Square {
 
 		if (exists)  return; 
 		
-			if (verticalLines[i][j].visible == 2 && horizontalLines[i][j].visible == 2
-					&& verticalLines[i + 1][j].visible == 2 && horizontalLines[i][j + 1].visible == 2) {
+			if (verticalLines[i][j].visible == 2 && horizontalLines[i][j].visible == 2 && verticalLines[i + 1][j].visible == 2 && horizontalLines[i][j + 1].visible == 2) {
 				exists = true;
 				this.turn = turn;
+				if(turn) {
+					redPoints++;
+					
+				}else {
+					bluePoints++;
+					
+				}
 			} else {
 				exists = false;
 			}
 
 		
+	}
+	
+	public static int getPointsBlue() {
+			return bluePoints;
+		
+	}
+	public static int getPointsRed() {
+		return redPoints;
+	
 	}
 
 	public void dispose() {
