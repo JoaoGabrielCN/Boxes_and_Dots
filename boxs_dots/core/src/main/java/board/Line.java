@@ -14,7 +14,7 @@ public class Line {
 	Boolean align;
 	private Texture horizontalTexture, verticalTexture;
 	private Sprite line;
-	private boolean exist;
+	public boolean exist;
 	Vector3 touchPoint = new Vector3();
 	Boolean turn = true;
 
@@ -27,27 +27,24 @@ public class Line {
 		intializeLines();
 	}
 
-	public void draw(SpriteBatch batch) {
-		switch (visible) {
-		case 0:
-			line.setColor(0f, 0f, 0f, 1f);
-			line.draw(batch);
-			break;
-		case 1:
+	private void setColor() {
+
+		if (visible == 2 || visible == 1) {
 			if (turn) {
 				line.setColor(0.1f, 0.1f, 1f, 1f);
 			} else {
 
 				line.setColor(1f, 0.1f, 0.1f, 1f);
 			}
-
-			line.draw(batch);
-			break;
-		case 2:
-			line.draw(batch);
-			break;
-
+		} else {
+			line.setColor(0f, 0f, 0f, 1f);
 		}
+	}
+
+	public void draw(SpriteBatch batch) {
+
+		setColor();
+		line.draw(batch);
 
 	}
 
@@ -59,53 +56,67 @@ public class Line {
 		verticalTexture = new Texture("LinhaVertical1.png");
 		horizontalTexture = new Texture("LinhaHorizontal1.png");
 
-		if (!align) {
-			line = new Sprite(horizontalTexture);
-		} else {
+		if (align) {
 			line = new Sprite(verticalTexture);
+		} else {
+			line = new Sprite(horizontalTexture);
 		}
 
 		line.setPosition(pos.x, pos.y);
 	}
 
 	public boolean MouseOver(OrthographicCamera camera, boolean turn, Dots[][] Dots) {
+
 		Vector3 mousePos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
+		
 		camera.unproject(mousePos);
 
-		int i = ((int) mousePos.x - 35) / 100;
-		int j = ((int) mousePos.y - 35) / 100;
+		int i = (int) getMouseIndex(mousePos).x;
+		int j = (int) getMouseIndex(mousePos).y;
 
-		if (i < 0) i = 0;
+		boolean mouseOverDot = Dots[i][j].getSprite().getBoundingRectangle().contains(mousePos.x, mousePos.y);
+		boolean mouseOverLine = line.getBoundingRectangle().contains(mousePos.x, mousePos.y);
 
-		if (i > 5) i = 5;
+		if (!mouseOverDot && !exist) {
 
-		if (j > 5) j = 5;
-		
-		if (j < 0) j = 0;
-		
+			if (mouseOverLine) {
+				setVisibility(1);
+				this.turn = turn;
 
-		if (!Dots[i][j].getSprite().getBoundingRectangle().contains(mousePos.x, mousePos.y) && !exist) {
+				return clicked(camera, turn, mousePos);
 
-				if (line.getBoundingRectangle().contains(mousePos.x, mousePos.y)) {
-					setVisibility(1);
-					this.turn = turn;
-					return clicked(camera, turn);
-
-				} else {
-					setVisibility(0);
-				}
+			} else {
+				setVisibility(0);
+			}
 
 		}
 
 		return false;
-
 	}
 
-	public boolean clicked(OrthographicCamera camera, boolean turn) {
+	private Vector3 getMouseIndex(Vector3 mousePos) {
+
+		int i = ((int) mousePos.x - 35) / 100;
+		int j = ((int) mousePos.y - 35) / 100;
+
+		if (i < 0)
+			i = 0;
+
+		if (i > 5)
+			i = 5;
+
+		if (j > 5)
+			j = 5;
+
+		if (j < 0)
+			j = 0;
+
+		return new Vector3(i, j, 0);
+	}
+
+	public boolean clicked(OrthographicCamera camera, boolean turn, Vector3 touchPos) {
 
 		if (Gdx.input.justTouched()) {
-			Vector3 touchPos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
-			camera.unproject(touchPos);
 
 			if (line.getBoundingRectangle().contains(touchPos.x, touchPos.y)) {
 				setVisibility(2);
@@ -121,4 +132,13 @@ public class Line {
 	public void setVisibility(int num) {
 		visible = num;
 	}
+
+	public int getVisibility() {
+		return visible;
+	}
+
+	public void setTurn(boolean turn) {
+		this.turn = turn;
+	}
+
 }

@@ -18,7 +18,6 @@ public class Game extends ApplicationAdapter {
 	public void create() {
 		batch = new SpriteBatch();
 		camera = new OrthographicCamera();
-
 		resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
 		board = new Board();
@@ -32,12 +31,13 @@ public class Game extends ApplicationAdapter {
 		camera.update(); 
 		batch.setProjectionMatrix(camera.combined); 
 		
-		board.update();
 
+		board.update();
 		batch.begin();
 		board.draw(batch);
 
 		batch.end();
+		
 	}
 
 	@Override
