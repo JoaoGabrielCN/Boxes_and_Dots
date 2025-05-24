@@ -1,5 +1,7 @@
 package board;
 
+import java.sql.BatchUpdateException;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -23,7 +25,7 @@ public class Board {
 	Boolean turn = true;
 	int controle = 1;
 
-	public Board() {
+	public Board(OrthographicCamera camera) {
 		dots = new Dots[6][6];
 		lines = new Line[5][6];
 		columns = new Line[6][5];
@@ -33,6 +35,7 @@ public class Board {
 		pontosRed = 0;
 		pontosBlue = 0;
 		player1 = new Player();
+		this.camera = camera;
 
 		if (controle == 1) {
 			player2 = new Bot();
@@ -42,8 +45,7 @@ public class Board {
 
 		intializeBoardPositions();
 
-		camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
+
 	}
 
 	public void draw(SpriteBatch batch) {
