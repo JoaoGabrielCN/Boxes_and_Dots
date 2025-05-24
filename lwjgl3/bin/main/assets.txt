@@ -1,9 +1,0 @@
-Bola.png
-CutePixel.ttf
-LinhaHorizontal.png
-LinhaHorizontal1.png
-LinhaVertical.png
-LinhaVertical1.png
-Quadrado.png
-Quadrado1.png
-libgdx.png
