@@ -1,5 +1,7 @@
 package board;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -11,8 +13,9 @@ public class Square {
 	private Sprite sprite;
 	private Texture squareTexture;
 	private boolean exists;
-	boolean turn;
+	private boolean turn;
 	private int i, j;
+	private Sound squareSound;
 
 	Square(int x, int y, int i, int j) {
 		exists = false;
@@ -22,6 +25,7 @@ public class Square {
 		sprite = new Sprite(squareTexture);
 		sprite.setSize(100, 100);
 		sprite.setPosition(x, y);
+		squareSound = Gdx.audio.newSound(Gdx.files.internal("squareSound.mp3"));
 
 	}
 
@@ -42,7 +46,9 @@ public class Square {
 				setColor();
 
 				player.incrementScore();
+				squareSound.play();
 				return true;
+				
 			}
 		}
 		return false;

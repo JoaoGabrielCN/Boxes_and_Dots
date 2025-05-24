@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
+import users.AbstractPlayer;
 import users.Bot;
 import users.Player;
 
@@ -18,9 +19,9 @@ public class Board {
 	int pontosRed;
 	int pontosBlue;
 	boolean jogada;
-	Player player;
-	Bot bot;
+	AbstractPlayer player1, player2;
 	Boolean turn = true;
+	int controle = 1;
 
 	public Board() {
 		dots = new Dots[6][6];
@@ -31,14 +32,18 @@ public class Board {
 		placarVermelho = new Placar(false);
 		pontosRed = 0;
 		pontosBlue = 0;
-		player = new Player();
-		bot = new Bot();
+		player1 = new Player();
+
+		if (controle == 1) {
+			player2 = new Bot();
+		} else {
+			player2 = new Player();
+		}
 
 		intializeBoardPositions();
 
 		camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
-
 	}
 
 	public void draw(SpriteBatch batch) {
@@ -46,10 +51,8 @@ public class Board {
 		for (Square[] squares2 : squares) {
 			for (Square square : squares2) {
 				square.draw(batch);
-
 			}
 		}
-
 		for (Line[] columns2 : columns) {
 			for (Line column : columns2) {
 				column.draw(batch);
@@ -60,16 +63,14 @@ public class Board {
 				line.draw(batch);
 			}
 		}
-
 		for (Dots[] dots2 : dots) {
 			for (Dots dots : dots2) {
-
 				dots.draw(batch);
 			}
 		}
-		placarAzul.draw(batch, player.getScore());
-		placarVermelho.draw(batch, bot.getScore());
 		
+		placarAzul.draw(batch, player1.getScore());
+		placarVermelho.draw(batch, player2.getScore());
 	}
 
 	public void dispose() {
@@ -79,13 +80,11 @@ public class Board {
 				dots.dispose();
 			}
 		}
-
 		for (Line[] columns2 : columns) {
 			for (Line column : columns2) {
 				column.dispose();
 			}
 		}
-
 		for (Line[] lines2 : lines) {
 			for (Line line : lines2) {
 				line.dispose();
@@ -97,10 +96,9 @@ public class Board {
 				square.dispose();
 			}
 		}
-
+		
 		placarAzul.dispose();
 		placarVermelho.dispose();
-
 	}
 
 	private void intializeBoardPositions() {
@@ -114,12 +112,7 @@ public class Board {
 		for (int i = 0; i < 6; i++) {
 			for (int j = 0; j < 5; j++) {
 				columns[i][j] = new Line(new Vector2(i * 100 + 40, j * 100 + 35 + 15), true);
-			}
-		}
-
-		for (int i = 0; i < 5; i++) {
-			for (int j = 0; j < 6; j++) {
-				lines[i][j] = new Line(new Vector2(i * 100 + 35 + 15, j * 100 + 40), false);
+				lines[j][i] = new Line(new Vector2(j * 100 + 35 + 15, i * 100 + 40), false);
 			}
 		}
 
@@ -131,30 +124,10 @@ public class Board {
 	}
 
 	public void update() {
-		
+
 		camera.update();
-		
-		boolean fechouQuad = false, jogou = false;
 
-		if (turn) {
-			if (player.play(columns, lines, dots, camera, turn)) {
-
-				jogou = true;
-
-			}
-
-		} else {
-			if (bot.play(columns, lines, dots, camera, turn)) {
-				jogou = true;
-			}
-
-		}
-
-		fechouQuad = checkBoard();
-
-		if (jogou && !fechouQuad) {
-			turn = !turn;
-		}
+		updateTurn(player1, player2);
 
 	}
 
@@ -162,13 +135,14 @@ public class Board {
 		for (Square[] squares2 : squares) {
 			for (Square square : squares2) {
 				if (turn) {
-					if (square.checkSquare(columns, lines, turn, player)) {
+					if (square.checkSquare(columns, lines, turn, player1)) {
 						return true;
 					}
 				} else {
-					if (square.checkSquare(columns, lines, turn, bot)) {
+					if (square.checkSquare(columns, lines, turn, player2)) {
 						return true;
 					}
+
 				}
 			}
 		}
@@ -176,4 +150,30 @@ public class Board {
 		return false;
 	}
 
+	void updateTurn(AbstractPlayer p1, AbstractPlayer p2) {
+		
+
+		boolean fechouQuad = false, jogou = false;
+
+		if (turn) {
+			if (p1.play(columns, lines, dots, camera, turn)) {
+
+				jogou = true;
+
+			}
+
+		} else {
+
+			if (p2.play(columns, lines, dots, camera, turn)) {
+				jogou = true;
+
+			}
+		}
+
+		fechouQuad = checkBoard();
+
+		if (jogou && !fechouQuad) {
+			turn = !turn;
+		}
+	}
 }

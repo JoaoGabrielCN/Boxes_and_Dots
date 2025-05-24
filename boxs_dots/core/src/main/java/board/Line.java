@@ -65,7 +65,7 @@ public class Line {
 		line.setPosition(pos.x, pos.y);
 	}
 
-	public boolean MouseOver(OrthographicCamera camera, boolean turn, Dots[][] Dots) {
+	public boolean mouseOver(OrthographicCamera camera, boolean turn, Dots[][] Dots) {
 
 		Vector3 mousePos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
 		

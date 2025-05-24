@@ -2,12 +2,15 @@ package users;
 
 import java.util.Random;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
 import board.Dots;
 import board.Line;
 
 public class Bot extends AbstractPlayer {
+	
+
 	public boolean play(Line[][] columns, Line[][] lines, Dots[][] dots, OrthographicCamera camera, boolean turn) {
 		Random random = new Random();
 
@@ -22,6 +25,7 @@ public class Bot extends AbstractPlayer {
 					lines[i][j].setVisibility(2);
 					lines[i][j].exist = true;
 					return true;
+					
 				}
 			} else {
 				int i = random.nextInt(6);
@@ -31,7 +35,6 @@ public class Bot extends AbstractPlayer {
 					columns[i][j].setTurn(false);
 					columns[i][j].setVisibility(2);
 					columns[i][j].exist = true;
-
 					return true;
 				}
 			}
