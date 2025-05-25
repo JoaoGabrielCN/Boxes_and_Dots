@@ -61,7 +61,10 @@ public class Game extends ApplicationAdapter {
 
 		        }else {
 		            gameOver.drawTela(batch, board.player2.getScore(),board.player1.getScore());
-		            board.resetGame();
+		            if(board.resetGame()) {
+		            	menu.setBeginGame(false);
+		            }
+		            
 		        }
 			}
 			
