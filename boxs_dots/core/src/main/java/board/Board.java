@@ -180,7 +180,7 @@ public class Board {
 		}
 	}
 	
-	public void resetGame() {
+	public boolean resetGame() {
         if(Gdx.input.isKeyPressed(Keys.SPACE)) {
 
             for (Square[] squares2 : squares) {
@@ -203,6 +203,10 @@ public class Board {
 
             player1.resetScore();
             player2.resetScore();
+            
+            return true;
+        }else {
+        	return false;
         }
     }
 	
