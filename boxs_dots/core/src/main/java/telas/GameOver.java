@@ -19,7 +19,7 @@ parameter.size = 50;
 winnerPosX = 50;
 winnerPosY = 450;
 
-resetPosX=250;
+resetPosX=150;
 resetPosY = 250;
 
 winner = new BitmapFont();
@@ -35,8 +35,10 @@ public void whoIsWinner(int redScore, int blueScore) {
 if(redScore>blueScore) {
 winner.setColor(Color.RED);
 reset.setColor(Color.RED);
+winnerPosX=50;
 
 }else {
+	winnerPosX=100;
 winner.setColor(Color.BLUE);
 reset.setColor(Color.BLUE);
 
@@ -52,7 +54,7 @@ winner.draw(batch, "JOGADOR VERMELHO GANHOU", winnerPosX, winnerPosY);
 reset.draw(batch,"RESET",resetPosX, resetPosY);
 }else {
 winner.draw(batch, "JOGADOR AZUL GANHOU", winnerPosX, winnerPosY);
-reset.draw(batch,"RESET",resetPosX, resetPosY);
+reset.draw(batch,"PARA REINICIAR \n APERTE ESPAÇO",resetPosX, resetPosY);
 }
 
 
