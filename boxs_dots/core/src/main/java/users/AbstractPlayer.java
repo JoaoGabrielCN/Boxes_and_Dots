@@ -24,4 +24,8 @@ public abstract class AbstractPlayer {
 
 	public abstract boolean play(Line[][] columns, Line[][] lines, Dots[][] dots, OrthographicCamera camera,
 			boolean turn);
+	
+	public void resetScore() {
+        score = 0;
+    }
 }

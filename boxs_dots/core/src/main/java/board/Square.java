@@ -68,4 +68,8 @@ public class Square {
 	public void dispose() {
 		sprite.getTexture().dispose();
 	}
+	
+	public void resetSquare() {
+        exists = false;
+    }
 }

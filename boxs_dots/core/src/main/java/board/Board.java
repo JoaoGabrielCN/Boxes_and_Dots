@@ -1,6 +1,7 @@
 package board;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -19,11 +20,11 @@ public class Board {
 	int pontosRed;
 	int pontosBlue;
 	boolean jogada;
-	AbstractPlayer player1, player2;
+	public AbstractPlayer player1, player2;
 	Boolean turn = true;
 	
 
-	public Board() {
+	public Board(OrthographicCamera camera) {
 		dots = new Dots[6][6];
 		lines = new Line[5][6];
 		columns = new Line[6][5];
@@ -33,13 +34,11 @@ public class Board {
 		pontosRed = 0;
 		pontosBlue = 0;
 		player1 = new Player();
-
+		this.camera = camera;
 		
 		intializeBoardPositions();
-
-		camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
 	}
+		
 	
 	public void setControle(int controle) {
 		if (controle == 2) {
@@ -180,4 +179,38 @@ public class Board {
 			turn = !turn;
 		}
 	}
+	
+	public void resetGame() {
+        if(Gdx.input.isKeyPressed(Keys.SPACE)) {
+
+            for (Square[] squares2 : squares) {
+                for (Square square : squares2) {
+                    square.resetSquare();
+                }
+            }
+
+            for (Line[] columns2 : columns) {
+                for (Line column : columns2) {
+                    column.resetLine();
+                }
+            }
+
+            for (Line[] lines2 : lines) {
+                for (Line line : lines2) {
+                    line.resetLine();
+                }
+            }
+
+            player1.resetScore();
+            player2.resetScore();
+        }
+    }
+	
+	public boolean gameOver() {
+        if(player1.getScore() + player2.getScore() == 25) {
+            return true;
+        }else {
+            return false;
+        }
+    }
 }

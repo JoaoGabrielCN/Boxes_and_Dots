@@ -141,5 +141,9 @@ public class Line {
 	public void setTurn(boolean turn) {
 		this.turn = turn;
 	}
+	public void resetLine() {
+        visible = 0;
+        exist = false;
+    }
 
 }
