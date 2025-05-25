@@ -51,7 +51,7 @@ whoIsWinner(redScore, blueScore);
 
 if(redScore>blueScore) {
 winner.draw(batch, "JOGADOR VERMELHO GANHOU", winnerPosX, winnerPosY);
-reset.draw(batch,"RESET",resetPosX, resetPosY);
+reset.draw(batch,"PARA REINICIAR \n APERTE ESPAÇO",resetPosX, resetPosY);
 }else {
 winner.draw(batch, "JOGADOR AZUL GANHOU", winnerPosX, winnerPosY);
 reset.draw(batch,"PARA REINICIAR \n APERTE ESPAÇO",resetPosX, resetPosY);

@@ -40,12 +40,12 @@ public class Menu {
 		if (Gdx.input.justTouched()) {
 	
 			if(jogador_Contra_Jogador.getBoundingRectangle().contains(mousePos.x,mousePos.y) ) {
-			System.out.println("aaaa");
+			
 			return 1;
 			
 		
 			}else if(jogodor_Contra_Maquina.getBoundingRectangle().contains(mousePos.x,mousePos.y) ) {
-			System.out.println("lol");
+			
 			return 2;
 		}
 		}
