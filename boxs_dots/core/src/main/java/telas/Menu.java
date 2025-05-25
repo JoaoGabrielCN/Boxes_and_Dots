@@ -12,8 +12,8 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFont
 import com.badlogic.gdx.math.Vector3;
 
 public class Menu {
-	private Texture menuTexture, texture1, texture2;
-	private Sprite menuBackground, button1, button2;
+	private Texture  texture1, texture2;
+	private Sprite  button1, button2;
 	private Boolean gameBegin;
 	private BitmapFont title, text1, text2;
 
@@ -34,8 +34,6 @@ public class Menu {
 		text2 = generator.generateFont(parameter);
 		
 		gameBegin = false;
-		menuTexture = new Texture("Tela_Fundo.png");
-		menuBackground = new Sprite(menuTexture);
 
 		texture1 = new Texture("Botao.png");
 		button1 = new Sprite(texture1);
@@ -44,8 +42,6 @@ public class Menu {
 		button2 = new Sprite(texture2);
 	}
 	public void setTextsPositions() {
-		menuBackground.setSize(600, 700);
-		menuBackground.setPosition(0, 0);
 
 		button1.setPosition(140, 390);
 		button2.setPosition(140, 190);
@@ -79,7 +75,6 @@ public class Menu {
 	}
 
 	public void dispose() {
-		menuBackground.getTexture().dispose();
 		button1.getTexture().dispose();
 		button2.getTexture().dispose();
 		title.dispose();
