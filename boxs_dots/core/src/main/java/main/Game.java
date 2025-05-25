@@ -2,6 +2,7 @@ package main;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -30,6 +31,8 @@ public class Game extends ApplicationAdapter {
 
 	@Override
 	public void render() {
+		Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
+		
 		ScreenUtils.clear(0.6f, 0.7f, 0.6f, 1);
 		
 		camera.update();

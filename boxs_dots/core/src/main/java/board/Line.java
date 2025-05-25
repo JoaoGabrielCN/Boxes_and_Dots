@@ -1,7 +1,7 @@
 package board;
 
 import com.badlogic.gdx.Gdx;
-
+import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -67,7 +67,7 @@ public class Line {
 	}
 
 	public boolean mouseOver(OrthographicCamera camera, boolean turn, Dots[][] Dots) {
-
+		
 		Vector3 mousePos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
 		
 		camera.unproject(mousePos);
@@ -79,10 +79,11 @@ public class Line {
 		boolean mouseOverLine = line.getBoundingRectangle().contains(mousePos.x, mousePos.y);
 
 		if (!mouseOverDot && !exist) {
-
+			
 			if (mouseOverLine) {
 				setVisibility(1);
 				this.turn = turn;
+				Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Hand);	
 
 				return clicked(camera, turn, mousePos);
 
@@ -91,6 +92,8 @@ public class Line {
 			}
 
 		}
+		
+		
 
 		return false;
 	}
