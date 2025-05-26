@@ -1,52 +1,33 @@
-# 🎮 TP - BOXES AND DOTS
+# Projeto LibGDX
 
-Este projeto foi desenvolvido como parte da disciplina **Linguagem e Técnicas de Programação 2**, do curso de **Informática 3** do **CEFET-MG**, ministrada pelo professor **Alisson Rodrigo**.
+A [libGDX](https://libgdx.com/) project generated with [gdx-liftoff](https://github.com/libgdx/gdx-liftoff).
 
-## 👨‍💻 Integrantes
+This project was generated with a template including simple application launchers and an `ApplicationAdapter` extension that draws libGDX logo.
 
-- João Gabriel Correia Neves  
-- Lucas Lenz Chaves da Silva  
-- Estevão Viana de Paula
+## Platforms
 
----
+- `core`: Main module with the application logic shared by all platforms.
+- `lwjgl3`: Primary desktop platform using LWJGL3; was called 'desktop' in older docs.
 
-## 🚀 Como Executar o Projeto
+## Gradle
 
-### No Eclipse
+This project uses [Gradle](https://gradle.org/) to manage dependencies.
+The Gradle wrapper was included, so you can run Gradle tasks using `gradlew.bat` or `./gradlew` commands.
+Useful Gradle tasks and flags:
 
-1. Importe o projeto:
-   - Abra o Eclipse.
-   - Vá em **File > Import > Gradle > Existing Gradle Project**.
-   - Selecione a pasta raiz do projeto e clique em **Finish**.
+- `--continue`: when using this flag, errors will not stop the tasks from running.
+- `--daemon`: thanks to this flag, Gradle daemon will be used to run chosen tasks.
+- `--offline`: when using this flag, cached dependency archives will be used.
+- `--refresh-dependencies`: this flag forces validation of all dependencies. Useful for snapshot versions.
+- `build`: builds sources and archives of every project.
+- `cleanEclipse`: removes Eclipse project data.
+- `cleanIdea`: removes IntelliJ project data.
+- `clean`: removes `build` folders, which store compiled classes and built archives.
+- `eclipse`: generates Eclipse project data.
+- `idea`: generates IntelliJ project data.
+- `lwjgl3:jar`: builds application's runnable jar, which can be found at `lwjgl3/build/libs`.
+- `lwjgl3:run`: starts the application.
+- `test`: runs unit tests (if any).
 
-2. Aguarde a sincronização do Gradle.
-
-3. Navegue até `desktop/src` e execute a classe `DesktopLauncher.java` como uma aplicação Java.
-
----
-
-### No VS Code
-
-1. Abra o VS Code.
-
-2. Abra a pasta raiz do projeto (`File > Open Folder`).
-
-3. Certifique-se de que a extensão **Gradle for Java** esteja instalada.
-
-4. Abra o arquivo `DesktopLauncher.java` dentro da pasta `desktop/src`.
-
-5. Use o comando **Run Java** (botão de "play" no topo da janela do arquivo) para executar o projeto.
-
----
-
-### ✅ Requisitos
-
-- Java JDK 8 ou superior  
-- Gradle (incluído no projeto via wrapper)  
-- Extensões recomendadas no VS Code:  
-  - *Language Support for Java™ by Red Hat*  
-  - *Gradle for Java*  
-
----
-
-
+Note that most tasks that are not specific to a single project can be run with `name:` prefix, where the `name` should be replaced with the ID of a specific project.
+For example, `core:clean` removes `build` folder only from the `core` project.
