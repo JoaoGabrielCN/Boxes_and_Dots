@@ -1,4 +1,4 @@
-# 🎮 Projeto LibGDX – CEFET-MG
+# 🎮 TP - BOXES AND DOTS
 
 Este projeto foi desenvolvido como parte da disciplina **Linguagem e Técnicas de Programação 2**, do curso de **Informática 3** do **CEFET-MG**, ministrada pelo professor **Alisson Rodrigo**.
 
